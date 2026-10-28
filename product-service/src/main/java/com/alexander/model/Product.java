@@ -22,13 +22,16 @@ public class Product extends BaseEntity<Long> {
     @Column(name = "version", nullable = false)
     private String version;
 
-    @Column(name = "edition", nullable = false)
+    @Column(name = "edition")
     private String edition;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "validFrom", nullable = false)
+    @Column(name = "valid_from")
     private LocalDate validFrom;
+
+    @Column(name = "category_id", nullable = false)
+    private Long categoryId;
 
 }

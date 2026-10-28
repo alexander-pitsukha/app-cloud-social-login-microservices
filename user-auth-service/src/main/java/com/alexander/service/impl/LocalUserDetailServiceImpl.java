@@ -17,7 +17,7 @@ public class LocalUserDetailServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public LocalUser loadUserByUsername(final String email) throws UsernameNotFoundException {
+    public LocalUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " was not found in the database");

@@ -15,11 +15,12 @@ import java.util.List;
 public class GatewayConfig {
 
     private static final String USER_AUTH_SERVICE = "user-auth-service";
+    private static final String CATEGORY_SERVICE = "category-service";
     private static final String PRODUCT_SERVICE = "product-service";
     private static final String ORDER_SERVICE = "order-service";
-    public static final String REGEX = "/(?<path>.*)";
-    public static final String REPLACEMENT = "/${path}";
-    public static final String LB = "lb://";
+    private static final String REGEX = "/(?<path>.*)";
+    private static final String REPLACEMENT = "/${path}";
+    private static final String LB = "lb://";
 
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder, AuthenticationFilter filter, @Value("${server.port}") String serverPort) {
@@ -29,6 +30,9 @@ public class GatewayConfig {
                                 .rewritePath(USER_AUTH_SERVICE + REGEX, REPLACEMENT)
                                 .circuitBreaker(config -> config.setName("user-service-circuit-breaker")
                                         .setFallbackUri("forward:/user-auth-fallback"))).uri(LB + USER_AUTH_SERVICE))
+                .route(CATEGORY_SERVICE,
+                        r -> r.path("/" + CATEGORY_SERVICE + "/**").filters(f -> f.filter(filter)
+                                .rewritePath(CATEGORY_SERVICE + REGEX, REPLACEMENT)).uri(LB + CATEGORY_SERVICE))
                 .route(PRODUCT_SERVICE,
                         r -> r.path("/" + PRODUCT_SERVICE + "/**").filters(f -> f.filter(filter)
                                 .rewritePath(PRODUCT_SERVICE + REGEX, REPLACEMENT)).uri(LB + PRODUCT_SERVICE))
@@ -46,10 +50,7 @@ public class GatewayConfig {
     public CommandLineRunner groupedOpenApis(RouteLocator locator, SwaggerUiConfigParameters swaggerUiParameters) {
         List<Route> routes = locator.getRoutes().collectList().block();
         assert routes != null;
-        return args -> routes.stream()
-                .map(Route::getId)
-                .filter(id -> id.matches(".*-service"))
-                .forEach(swaggerUiParameters::addGroup);
+        return args -> routes.stream().map(Route::getId).filter(id -> id.matches(".*-service")).forEach(swaggerUiParameters::addGroup);
     }
 
 }

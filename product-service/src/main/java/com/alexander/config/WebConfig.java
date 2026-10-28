@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     @Autowired
-    public DefaultConversionService defaultConversionService(final List<Converter<?, ?>> converters) {
+    public DefaultConversionService defaultConversionService(List<Converter<?, ?>> converters) {
         var defaultConversionService = new DefaultConversionService();
         converters.forEach(defaultConversionService::addConverter);
         return defaultConversionService;

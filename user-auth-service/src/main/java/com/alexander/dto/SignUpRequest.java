@@ -53,32 +53,32 @@ public class SignUpRequest {
         private String matchingPassword;
         private SocialProvider socialProvider;
 
-        public Builder addProviderUserID(final String userID) {
+        public Builder addProviderUserID(String userID) {
             this.providerUserID = userID;
             return this;
         }
 
-        public Builder addDisplayName(final String displayName) {
+        public Builder addDisplayName(String displayName) {
             this.displayName = displayName;
             return this;
         }
 
-        public Builder addEmail(final String email) {
+        public Builder addEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public Builder addPassword(final String password) {
+        public Builder addPassword(String password) {
             this.password = password;
             return this;
         }
 
-        public Builder addMatchingPassword(final String matchingPassword) {
+        public Builder addMatchingPassword(String matchingPassword) {
             this.matchingPassword = matchingPassword;
             return this;
         }
 
-        public Builder addSocialProvider(final SocialProvider socialProvider) {
+        public Builder addSocialProvider(SocialProvider socialProvider) {
             this.socialProvider = socialProvider;
             return this;
         }

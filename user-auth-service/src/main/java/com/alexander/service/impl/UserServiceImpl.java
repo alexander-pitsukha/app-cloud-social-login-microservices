@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
+    public User registerNewUser(SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
         if (signUpRequest.getUserID() != null && userRepository.existsById(signUpRequest.getUserID())) {
             throw new UserAlreadyExistAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
         } else if (userRepository.existsByEmail(signUpRequest.getEmail())) {
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByEmail(final String email) {
+    public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean resendVerificationToken(final String existingVerificationToken) {
+    public boolean resendVerificationToken(String existingVerificationToken) {
         VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
         if (vToken != null) {
             vToken.updateToken(UUID.randomUUID().toString());
@@ -127,12 +127,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createVerificationTokenForUser(final User user, final String token) {
+    public void createVerificationTokenForUser(User user, String token) {
         final VerificationToken myToken = new VerificationToken(token, user);
         tokenRepository.save(myToken);
     }
 
-    private User buildUser(final SignUpRequest formDTO) {
+    private User buildUser(SignUpRequest formDTO) {
         User user = new User();
         user.setDisplayName(formDTO.getDisplayName());
         user.setEmail(formDTO.getEmail());

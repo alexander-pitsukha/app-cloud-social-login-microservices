@@ -16,6 +16,7 @@ public class ProductDtoToProductConverter implements Converter<ProductDto, Produ
         product.setEdition(source.getEdition());
         product.setDescription(source.getDescription());
         product.setValidFrom(source.getValidFrom());
+        product.setCategoryId(source.getCategoryId());
         return product;
     }
 

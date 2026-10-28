@@ -1,11 +1,16 @@
 package com.alexander.service;
 
 import com.alexander.dto.OrderDto;
+import org.springframework.data.domain.Page;
 
-public interface OrderService extends Service<OrderDto, Long> {
+import java.util.List;
 
-    OrderDto save(final String razorpayOrderId, final Long userId);
+public interface OrderService extends Service<OrderDto, Page<OrderDto>, Long> {
 
-    String validateAndUpdateOrder(final String razorpayOrderId, final String razorpayPaymentId, final String razorpaySignature, final String secret);
+    List<OrderDto> findByProduct(Long productId);
+
+    OrderDto save(String razorpayOrderId, Long userId);
+
+    String validateAndUpdateOrder(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature, String secret);
 
 }

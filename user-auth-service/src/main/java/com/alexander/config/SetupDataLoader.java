@@ -25,7 +25,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Override
     @Transactional
-    public void onApplicationEvent(final ContextRefreshedEvent event) {
+    public void onApplicationEvent(ContextRefreshedEvent event) {
         if (alreadySetup) {
             return;
         }
@@ -36,7 +36,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         alreadySetup = true;
     }
 
-    private void createUserIfNotFound(final String email, final Set<Role> roles) {
+    private void createUserIfNotFound(String email, Set<Role> roles) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             user = new User();
@@ -50,7 +50,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         }
     }
 
-    private Role createRoleIfNotFound(final String name) {
+    private Role createRoleIfNotFound(String name) {
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = roleRepository.save(new Role(name));

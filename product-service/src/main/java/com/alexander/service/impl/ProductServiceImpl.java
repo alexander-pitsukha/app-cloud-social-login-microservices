@@ -13,10 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
-import static com.alexander.config.AppConstants.ID;
-
+import static com.alexander.util.AppConstants.ID;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +61,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDto> findByCategory(Long categoryId) {
+        List<Product> products = productRepository.findByCategory(categoryId);
+        return products.stream().map(product -> defaultConversionService.convert(product, ProductDto.class)).toList();
     }
 
 }

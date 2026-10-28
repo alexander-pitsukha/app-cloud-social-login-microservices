@@ -20,8 +20,10 @@ public class AppProperties {
     @Setter
     @Validated
     public static class Auth {
+
         @NotBlank
         private String tokenSecret;
+
         @NotBlank
         private long tokenExpirationMsec;
     }

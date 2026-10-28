@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role extends BaseEntity<Long> {
+public class Role extends AbstractIdentifiable<Long> {
 
     public Role(String name) {
         this.name = name;

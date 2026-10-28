@@ -13,12 +13,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @UtilityClass
 public class GeneralUtils {
 
-    public List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(final Set<Role> roles) {
+    public List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(Set<Role> roles) {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
@@ -36,12 +35,12 @@ public class GeneralUtils {
     }
 
     public UserInfo buildUserInfo(LocalUser localUser) {
-        List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        List<String> roles = localUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         User user = localUser.getUser();
         return new UserInfo(user.getId().toString(), user.getDisplayName(), user.getEmail(), roles);
     }
 
-    public LocalDateTime calculateExpiryDate(final int expiryTimeInMinutes) {
+    public LocalDateTime calculateExpiryDate(int expiryTimeInMinutes) {
         return LocalDateTime.now().plusMinutes(expiryTimeInMinutes);
     }
 

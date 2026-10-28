@@ -1,12 +1,12 @@
 package com.alexander.controller;
 
 import com.alexander.config.RazorPayClientConfig;
-import com.alexander.dto.ApiResponse;
 import com.alexander.dto.OrderDto;
 import com.alexander.dto.payment.OrderRequest;
 import com.alexander.dto.payment.OrderResponse;
 import com.alexander.service.OrderService;
 import com.alexander.service.impl.OrderServiceIml;
+import com.alexander.util.ApiResponse;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -19,16 +19,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @RestController
-@RequestMapping("order")
+@RequestMapping("orders")
 @Slf4j
 public class OrderController {
 
     private final RazorpayClient client;
-
     private final RazorPayClientConfig razorPayClientConfig;
-
     private final OrderService orderService;
 
     @Autowired
@@ -36,6 +35,11 @@ public class OrderController {
         this.razorPayClientConfig = razorpayClientConfig;
         this.orderService = orderService;
         this.client = new RazorpayClient(razorpayClientConfig.getKey(), razorpayClientConfig.getSecret());
+    }
+
+    @GetMapping("product/{productId}")
+    public ResponseEntity<List<OrderDto>> findByProduct(@PathVariable("productId") Long productId) {
+        return ResponseEntity.ok(orderService.findByProduct(productId));
     }
 
     @PostMapping

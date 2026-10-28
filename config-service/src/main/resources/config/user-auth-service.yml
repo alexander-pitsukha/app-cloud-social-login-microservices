@@ -15,23 +15,23 @@ spring:
             clientSecret: <your-client-secret>
             provider: linkedin
             client-name: Linkedin
-            clientId: <your-client-id>
+            clientId: ${LINKEDIN_CLIENT_ID}
             redirect-uri: ${gateway.service.url}
             authorization-grant-type: authorization_code
             scope: r_liteprofile, r_emailaddress
             client-authentication-method: post
           google:
+            clientId: ${GOOGLE_CLIENT_ID}
+            clientSecret: ${GOOGLE_CLIENT_SECRET}
             redirect-uri: ${gateway.service.url}
-            clientId: <your-client-id>
-            clientSecret: <your-client-secret>
           facebook:
-            clientSecret: <your-client-secret>
-            clientId: <your-client-id>
+            clientSecret: ${FACEBOOK_CLIENT_SECRET}
+            clientId: ${FACEBOOK_CLIENT_ID}
             redirect-uri: ${gateway.service.url}
           github:
-            clientSecret: <your-client-secret>
+            clientSecret: ${GITHUB_CLIENT_SECRET}
+            clientId: ${GITHUB_CLIENT_ID}
             redirect-uri: ${gateway.service.url}
-            clientId: <your-client-id>
         provider:
           linkedin:
             authorization-uri: https://www.linkedin.com/oauth/v2/authorization

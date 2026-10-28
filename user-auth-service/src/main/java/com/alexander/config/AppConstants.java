@@ -4,14 +4,12 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AppConstants {
+public final class AppConstants {
 
     public static final String TOKEN_INVALID = "INVALID";
     public static final String TOKEN_EXPIRED = "EXPIRED";
     public static final String TOKEN_VALID = "VALID";
     public static final String SUCCESS = "success";
-    public static final String ID = "ID";
-    public static final String USER = "USER";
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_MODERATOR = "ROLE_MODERATOR";

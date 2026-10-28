@@ -20,7 +20,6 @@ public class UserAuthServiceApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-
         return builder.sources(UserAuthServiceApplication.class);
     }
 

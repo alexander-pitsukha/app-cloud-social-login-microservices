@@ -15,6 +15,7 @@ public class OrderDtoToOrderConverter implements Converter<OrderDto, Order> {
         order.setRazorpayPaymentId(source.getRazorpayPaymentId());
         order.setRazorpayOrderId(source.getRazorpayOrderId());
         order.setRazorpaySignature(source.getRazorpaySignature());
+        order.setProductId(source.getProductId());
         return order;
     }
 

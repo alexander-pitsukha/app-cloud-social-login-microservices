@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -27,7 +28,7 @@ public class OrderServiceIml implements OrderService {
 
     @Transactional
     @Override
-    public String validateAndUpdateOrder(final String razorpayOrderId, final String razorpayPaymentId, final String razorpaySignature, final String secret) {
+    public String validateAndUpdateOrder(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature, String secret) {
         String errorMsg = null;
         try {
             Order order = orderRepository.findByRazorpayOrderId(razorpayOrderId);
@@ -60,6 +61,12 @@ public class OrderServiceIml implements OrderService {
         return defaultConversionService.convert(order, OrderDto.class);
     }
 
+    @Override
+    public List<OrderDto> findByProduct(Long productId) {
+        List<Order> orders = orderRepository.findByProduct(productId);
+        return orders.stream().map(order -> defaultConversionService.convert(order, OrderDto.class)).toList();
+    }
+
     @Transactional
     @Override
     public OrderDto save(OrderDto orderDto) {
@@ -70,7 +77,7 @@ public class OrderServiceIml implements OrderService {
 
     @Transactional
     @Override
-    public OrderDto save(final String razorpayOrderId, final Long userId) {
+    public OrderDto save(String razorpayOrderId, Long userId) {
         Order order = new Order();
         order.setRazorpayOrderId(razorpayOrderId);
         order.setUserId(userId);

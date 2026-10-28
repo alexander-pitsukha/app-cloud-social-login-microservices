@@ -1,0 +1,21 @@
+server:
+  port: 8083
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    web: INFO
+
+spring:
+  datasource:
+    url: jdbc:sqlite:memory:myDb?date_class=TEXT
+    driver-class-name: org.sqlite.JDBC
+    username: sa
+    password: sa
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.sqlite.hibernate.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true

@@ -15,8 +15,11 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Order extends BaseEntity<Long> {
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
+
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
     @Column(name = "razorpay_payment_id")
     private String razorpayPaymentId;

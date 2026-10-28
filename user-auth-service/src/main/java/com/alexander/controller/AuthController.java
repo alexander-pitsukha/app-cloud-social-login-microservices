@@ -8,6 +8,7 @@ import com.alexander.model.User;
 import com.alexander.security.jwt.TokenProvider;
 import com.alexander.service.MailService;
 import com.alexander.service.UserService;
+import com.alexander.util.ApiResponse;
 import com.alexander.util.GeneralUtils;
 import dev.samstevens.totp.code.CodeVerifier;
 import dev.samstevens.totp.exceptions.QrGenerationException;
@@ -24,7 +25,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
@@ -68,10 +72,10 @@ public class AuthController {
                 return ResponseEntity.ok().body(new SignUpResponse(true, qrCodeImage));
             }
         } catch (UserAlreadyExistAuthenticationException e) {
-            log.error("Exception Ocurred", e);
+            log.error("Exception Occurred", e);
             return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
         } catch (QrGenerationException e) {
-            log.error("QR Generation Exception Ocurred", e);
+            log.error("QR Generation Exception Occurred", e);
             return new ResponseEntity<>(new ApiResponse(false, "Unable to generate QR code!"), HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
@@ -94,7 +98,6 @@ public class AuthController {
     }
 
     @PostMapping("token/resend")
-    @ResponseBody
     public ResponseEntity<ApiResponse> resendRegistrationToken(@NotEmpty @RequestBody String expiredToken) {
         if (!userService.resendVerificationToken(expiredToken)) {
             return new ResponseEntity<>(new ApiResponse(false, "Token not found!"), HttpStatus.BAD_REQUEST);
