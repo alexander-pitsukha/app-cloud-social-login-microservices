@@ -23,8 +23,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private final PasswordEncoder passwordEncoder;
     private boolean alreadySetup = false;
 
-    @Override
     @Transactional
+    @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (alreadySetup) {
             return;

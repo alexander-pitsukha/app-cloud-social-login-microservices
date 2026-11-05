@@ -32,20 +32,20 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.findById(id));
     }
 
-    @GetMapping("{id}/products")
+    @GetMapping("{id}/with-products")
     public ResponseEntity<CategoryDto> getCategoryWithProducts(@PathVariable Long id) {
         CategoryDto categoryDto = categoryService.findById(id);
-        ResponseEntity<List<ProductDto>> response = productClient.findByCategory(id);
+        ResponseEntity<List<ProductDto>> response = productClient.getByCategory(id);
         if (response.getStatusCode().is2xxSuccessful()) {
             categoryDto.setProducts(response.getBody());
         }
         return ResponseEntity.ok().body(categoryDto);
     }
 
-    @GetMapping("{id}/products-with-orders")
+    @GetMapping("{id}/with-products-and-orders")
     public ResponseEntity<CategoryDto> getCategoryWithProductsAndOrders(@PathVariable Long id) {
         CategoryDto categoryDto = categoryService.findById(id);
-        ResponseEntity<List<ProductDto>> response = productClient.findByCategoryWithOrders(id);
+        ResponseEntity<List<ProductDto>> response = productClient.getByCategoryWithOrders(id);
         if (response.getStatusCode().is2xxSuccessful()) {
             categoryDto.setProducts(response.getBody());
         }

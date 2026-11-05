@@ -1,6 +1,7 @@
 package com.alexander.service.impl;
 
 import com.alexander.dto.OrderDto;
+import com.alexander.exception.ResourceNotFoundException;
 import com.alexander.model.Order;
 import com.alexander.repo.OrderRepository;
 import com.alexander.service.OrderService;
@@ -16,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+
+import static com.alexander.util.AppConstants.ID;
 
 @Service
 @Transactional(readOnly = true)
@@ -56,7 +59,7 @@ public class OrderServiceIml implements OrderService {
 
     @Override
     public OrderDto findById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow();
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order", ID, id));
         return defaultConversionService.convert(order, OrderDto.class);
     }
 
@@ -88,7 +91,7 @@ public class OrderServiceIml implements OrderService {
     @Transactional
     @Override
     public void update(Long id, OrderDto orderDto) {
-        Order order = orderRepository.findById(id).orElseThrow();
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order", ID, id));
         order.setUserId(orderDto.getUserId());
         order.setProductId(orderDto.getProductId());
         order.setRazorpayPaymentId(orderDto.getRazorpayPaymentId());

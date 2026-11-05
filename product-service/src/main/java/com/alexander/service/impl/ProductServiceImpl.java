@@ -39,6 +39,12 @@ public class ProductServiceImpl implements ProductService {
         return defaultConversionService.convert(product, ProductDto.class);
     }
 
+    @Override
+    public List<ProductDto> findByCategory(Long categoryId) {
+        List<Product> products = productRepository.findByCategory(categoryId);
+        return products.stream().map(product -> defaultConversionService.convert(product, ProductDto.class)).toList();
+    }
+
     @Transactional
     @Override
     public ProductDto save(ProductDto productDto) {
@@ -62,12 +68,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public List<ProductDto> findByCategory(Long categoryId) {
-        List<Product> products = productRepository.findByCategory(categoryId);
-        return products.stream().map(product -> defaultConversionService.convert(product, ProductDto.class)).toList();
     }
 
 }

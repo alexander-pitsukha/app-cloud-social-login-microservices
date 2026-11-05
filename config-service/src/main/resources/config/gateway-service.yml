@@ -19,6 +19,14 @@ spring:
             allowed-methods: '*'
         add-to-simple-url-handler-mapping: true
 
+gateway:
+  security:
+    open-api-endpoints:
+      - /auth/signup
+      - /auth/signin
+      - /oauth2/authorization
+      - /login/oauth2/code/
+
 app:
   auth:
     token-expiration-msec: ${JWT_TOKEN_EXPIRATION_MSE}

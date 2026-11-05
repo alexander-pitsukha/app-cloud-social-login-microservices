@@ -12,9 +12,9 @@ import java.util.List;
 public interface ProductClient {
 
     @GetMapping("products/category/{categoryId}")
-    ResponseEntity<List<ProductDto>> findByCategory(@PathVariable("categoryId") Long categoryId);
+    ResponseEntity<List<ProductDto>> getByCategory(@PathVariable Long categoryId);
 
     @GetMapping("products/category/{categoryId}/with-orders")
-    ResponseEntity<List<ProductDto>> findByCategoryWithOrders(@PathVariable("categoryId") Long categoryId);
+    ResponseEntity<List<ProductDto>> getByCategoryWithOrders(@PathVariable Long categoryId);
 
 }

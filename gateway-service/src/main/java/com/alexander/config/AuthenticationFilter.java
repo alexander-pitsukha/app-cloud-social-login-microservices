@@ -25,8 +25,7 @@ public class AuthenticationFilter implements GatewayFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getPath().toString();
-        if (!path.contains("/v3/api-docs") && routerValidator.getIsSecured().test(request)) {
-
+        if (!path.contains("/v3/api-docs") && routerValidator.isSecured(request)) {
             final String token = getJwtFromRequest(request);
             if (token == null || !tokenHelper.validateToken(token)) {
                 return this.onError(exchange);
