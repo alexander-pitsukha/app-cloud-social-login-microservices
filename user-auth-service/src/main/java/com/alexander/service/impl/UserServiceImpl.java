@@ -45,8 +45,8 @@ public class UserServiceImpl implements UserService {
     SecretGenerator secretGenerator;
     private final MailService mailService;
 
-    @Override
     @Transactional
+    @Override
     public User registerNewUser(SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
         if (signUpRequest.getUserID() != null && userRepository.existsById(signUpRequest.getUserID())) {
             throw new UserAlreadyExistAuthenticationException("User with User id " + signUpRequest.getUserID() + " already exist");
@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
     @Transactional
+    @Override
     public LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, attributes);
         if (!StringUtils.hasText(oAuth2UserInfo.getName())) {
@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
         return LocalUser.create(user, attributes, idToken, userInfo);
     }
 
-    @Override
     @Transactional
+    @Override
     public boolean resendVerificationToken(String existingVerificationToken) {
         VerificationToken vToken = tokenRepository.findByToken(existingVerificationToken);
         if (vToken != null) {

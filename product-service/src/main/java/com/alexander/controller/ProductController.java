@@ -33,15 +33,15 @@ public class ProductController {
     }
 
     @GetMapping("category/{categoryId}")
-    public ResponseEntity<List<ProductDto>> findByCategory(@PathVariable("categoryId") Long categoryId) {
+    public ResponseEntity<List<ProductDto>> getByCategory(@PathVariable Long categoryId) {
         return ResponseEntity.ok().body(productService.findByCategory(categoryId));
     }
 
     @GetMapping("category/{categoryId}/with-orders")
-    public ResponseEntity<List<ProductDto>> findByCategoryWithOrders(@PathVariable("categoryId") Long categoryId) {
+    public ResponseEntity<List<ProductDto>> getByCategoryWithOrders(@PathVariable Long categoryId) {
         List<ProductDto> productDtos = productService.findByCategory(categoryId);
         productDtos.forEach(productDto -> {
-            ResponseEntity<List<OrderDto>> response = orderClient.findByProduct(productDto.getId());
+            ResponseEntity<List<OrderDto>> response = orderClient.getByProduct(productDto.getId());
             if (response.getStatusCode().is2xxSuccessful()) {
                 productDto.setOrders(response.getBody());
             }
@@ -52,7 +52,7 @@ public class ProductController {
     @GetMapping("{id}/with-orders")
     public ResponseEntity<ProductDto> getProductWithOrders(@PathVariable Long id) {
         ProductDto productDto = productService.findById(id);
-        ResponseEntity<List<OrderDto>> response = orderClient.findByProduct(id);
+        ResponseEntity<List<OrderDto>> response = orderClient.getByProduct(id);
         if (response.getStatusCode().is2xxSuccessful()) {
             productDto.setOrders(response.getBody());
         }

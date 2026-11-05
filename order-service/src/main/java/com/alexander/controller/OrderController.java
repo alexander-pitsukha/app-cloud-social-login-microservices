@@ -12,6 +12,7 @@ import com.razorpay.RazorpayException;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -37,8 +38,18 @@ public class OrderController {
         this.client = new RazorpayClient(razorpayClientConfig.getKey(), razorpayClientConfig.getSecret());
     }
 
+    @GetMapping
+    public ResponseEntity<Page<OrderDto>> getOrders(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+        return ResponseEntity.ok().body(orderService.findAll(page, size));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<OrderDto> getOrder(@PathVariable Long id) {
+        return ResponseEntity.ok().body(orderService.findById(id));
+    }
+
     @GetMapping("product/{productId}")
-    public ResponseEntity<List<OrderDto>> findByProduct(@PathVariable("productId") Long productId) {
+    public ResponseEntity<List<OrderDto>> findByProduct(@PathVariable Long productId) {
         return ResponseEntity.ok(orderService.findByProduct(productId));
     }
 
