@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create
+      author: alexander
+      changes:
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_categories
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: text
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: text
+
+  - changeSet:
+      id: 2-insert
+      author: alexander
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: title
+                  value: car
+              - column:
+                  name: description
+                  value: Car
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: title
+                  value: computer
+              - column:
+                  name: description
+                  value: Computer

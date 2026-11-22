@@ -9,16 +9,16 @@ logging:
 spring:
   datasource:
     driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:memory:local;create=true
-    username: sa
-    password: sa
+    url: jdbc:derby:memory:db;create=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.DerbyTenSevenDialect
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 app:
   auth:

@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-tables
+      author: alexander
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_orders
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: razorpay_order_id
+                  type: varchar(255)
+              - column:
+                  name: razorpay_payment_id
+                  type: varchar(255)
+              - column:
+                  name: razorpay_signature
+                  type: varchar(255)
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false

@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>com.alexander</groupId>
-            <artifactId>commons-lib</artifactId>
+            <artifactId>common-library</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

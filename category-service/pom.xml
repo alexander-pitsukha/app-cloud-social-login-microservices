@@ -69,6 +69,11 @@
             <version>${io.jsonwebtoken.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.gwenn</groupId>
             <artifactId>sqlite-dialect</artifactId>
             <version>0.2.0</version>
@@ -86,7 +91,7 @@
         </dependency>
         <dependency>
             <groupId>com.alexander</groupId>
-            <artifactId>commons-lib</artifactId>
+            <artifactId>common-library</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

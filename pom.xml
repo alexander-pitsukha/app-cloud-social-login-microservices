@@ -20,6 +20,7 @@
         <org.springdoc.version>1.6.11</org.springdoc.version>
         <lombok.version>1.18.24</lombok.version>
         <io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
+        <liquibase.version>4.27.0</liquibase.version>
     </properties>
 
     <dependencies>
@@ -42,7 +43,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>commons-lib</module>
+        <module>common-library</module>
         <module>config-service</module>
         <module>discovery-service</module>
         <module>gateway-service</module>

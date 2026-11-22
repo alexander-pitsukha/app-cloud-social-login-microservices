@@ -1,0 +1,206 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create
+      author: alexander
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: display_name
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: enabled
+                  type: BOOLEAN
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: provider
+                  type: VARCHAR(255)
+              - column:
+                  name: provider_user_id
+                  type: VARCHAR(255)
+              - column:
+                  name: secret
+                  type: VARCHAR(255)
+              - column:
+                  name: using_2fa
+                  type: BOOLEAN
+
+        - createTable:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: user_role
+            columnNames: user_id, role_id
+            constraintName: pk_user_role
+
+        - createTable:
+            tableName: verification_token
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_verification_token
+                    nullable: false
+              - column:
+                  name: expiry_date
+                  type: TIMESTAMP
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: user_role
+            baseColumnNames: role_id
+            constraintName: fk_user_role_role
+            referencedTableName: roles
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: user_role
+            baseColumnNames: user_id
+            constraintName: fk_user_role_user
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: verification_token
+            baseColumnNames: user_id
+            constraintName: fk_verification_token_user
+            referencedTableName: users
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 2-insert
+      author: alexander
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: name
+                  value: ROLE_MODERATOR
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 3
+              - column:
+                  name: name
+                  value: ROLE_USER
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: display_name
+                  value: Admin
+              - column:
+                  name: email
+                  value: admin@test.com
+              - column:
+                  name: enabled
+                  valueBoolean: true
+              - column:
+                  name: using_2fa
+                  valueBoolean: false
+              - column:
+                  name: password
+                  value: '$2a$10$jYr22K.yd5kkv6.aQfi.NOwDYJXw8Q13.FK83AMrei1qH1Vj5wuYu'
+
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: role_id
+                  valueNumeric: 1
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: role_id
+                  valueNumeric: 2
+        - insert:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: role_id
+                  valueNumeric: 3

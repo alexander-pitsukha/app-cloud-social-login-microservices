@@ -33,6 +33,11 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
@@ -76,7 +81,7 @@
         </dependency>
         <dependency>
             <groupId>com.alexander</groupId>
-            <artifactId>commons-lib</artifactId>
+            <artifactId>common-library</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

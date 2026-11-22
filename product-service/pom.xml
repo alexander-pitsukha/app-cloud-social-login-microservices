@@ -69,6 +69,11 @@
             <version>${io.jsonwebtoken.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
         </dependency>
@@ -79,7 +84,7 @@
         </dependency>
         <dependency>
             <groupId>com.alexander</groupId>
-            <artifactId>commons-lib</artifactId>
+            <artifactId>common-library</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

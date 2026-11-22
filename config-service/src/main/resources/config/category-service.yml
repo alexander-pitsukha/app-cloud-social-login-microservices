@@ -8,16 +8,16 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:sqlite:memory:myDb?date_class=TEXT
+    url: jdbc:sqlite:memory:db?date_class=TEXT
     driver-class-name: org.sqlite.JDBC
-    username: sa
-    password: sa
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
         dialect: org.sqlite.hibernate.dialect.SQLiteDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
 
 app:
